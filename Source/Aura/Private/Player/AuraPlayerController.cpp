@@ -52,3 +52,50 @@ void AAuraPlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAuraPlayerController::Move);
 }
 
+void AAuraPlayerController::PlayerTick(float DeltaTime)
+{
+	Super::PlayerTick(DeltaTime);
+	CursorTrace();
+}
+
+void AAuraPlayerController::CursorTrace()
+{
+	FHitResult HitResult;
+	GetHitResultUnderCursor(ECC_Visibility, false,HitResult);
+	if(!HitResult.bBlockingHit) return;
+
+	LastActor = ThisActor;
+	ThisActor = Cast<IEnemyInterface>(HitResult.GetActor());
+
+	if(LastActor == nullptr)
+	{
+		if(ThisActor != nullptr)
+		{
+			ThisActor->HighlightEnemy();
+		}
+		else
+		{
+			//both null
+		}
+	}
+	else
+	{
+		if(ThisActor == nullptr)
+		{
+			LastActor->UnHighlightEnemy();
+		}
+		else
+		{
+			if(LastActor != ThisActor)
+			{
+				LastActor->UnHighlightEnemy();
+				ThisActor->HighlightEnemy();
+			}
+			else
+			{
+				//this == last
+			}
+		}
+	}
+}
+
