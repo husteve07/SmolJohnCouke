@@ -19,4 +19,5 @@ public:
 	void SetCustomeDepth();
 	virtual void HighlightEnemy() override;
 	virtual void UnHighlightEnemy() override;
+	virtual void BeginPlay() override;
 };
