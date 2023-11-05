@@ -27,10 +27,8 @@ AAuraEffectActor::AAuraEffectActor()
 void AAuraEffectActor::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if(GEngine)GEngine->AddOnScreenDebugMessage(0, 30.f, FColor::Red, FString("begin overlap"));
 	if(IAbilitySystemInterface* ASCInterface = Cast<IAbilitySystemInterface>(OtherActor))
 	{
-		if(GEngine)GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Red, FString("Picked Up potion"));
 		const UAuraAttributeSet* AuraAttributeSet = Cast<UAuraAttributeSet>(ASCInterface->GetAbilitySystemComponent()->GetAttributeSet(UAuraAttributeSet::StaticClass()));
 		UAuraAttributeSet* MutableAttributeSet = const_cast<UAuraAttributeSet*>(AuraAttributeSet);
 		MutableAttributeSet->SetHealth(AuraAttributeSet->GetHealth() + 25.f);
@@ -46,8 +44,6 @@ void AAuraEffectActor::OnEndOverlap(UPrimitiveComponent* OverlappedComponent, AA
 void AAuraEffectActor::BeginPlay()
 {
 	Super::BeginPlay();
-	if(GEngine)GEngine->AddOnScreenDebugMessage(2, 30.f, FColor::Red, FString("begin play"));
-
 	SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &AAuraEffectActor::OnBeginOverlap);
 	SphereComponent->OnComponentEndOverlap.AddDynamic(this, &AAuraEffectActor::OnEndOverlap);
 }
