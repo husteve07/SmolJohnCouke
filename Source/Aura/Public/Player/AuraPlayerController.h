@@ -37,5 +37,5 @@ private:
 	void Move(const FInputActionValue& InputValue);
 
 	IEnemyInterface* LastActor;
-	IEnemyInterface* ThisActor;
+	IEnemyInterface*  ThisActor;
 };
