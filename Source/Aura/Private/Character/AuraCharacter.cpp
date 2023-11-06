@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/AuraPlayerController.h"
 #include "UI/HUD/AuraHUD.h"
+#include "UI/WidgetController/OverlayWidgetController.h"
 
 AAuraCharacter::AAuraCharacter()
 {
