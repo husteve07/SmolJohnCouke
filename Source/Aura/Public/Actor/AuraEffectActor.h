@@ -3,9 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ActiveGameplayEffectHandle.h"
 #include "GameFramework/Actor.h"
 #include "AuraEffectActor.generated.h"
 
+class UAbilitySystemComponent;
+class UAuraAbilitySystemComponent;
 class UGameplayEffect;
 class USphereComponent;
 
@@ -45,17 +48,20 @@ protected:
 	//EEffectRemovalPolicy InstantEffectRemovalPolicy;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effect")
-	TSubclassOf<UGameplayEffect> DurationGameplayEffect;
+	TSubclassOf<UGameplayEffect> DurationGameplayEffectClass;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effect")
 	EEffectApplicationPolicy DurationEffectApplicationPolicy = EEffectApplicationPolicy::DoNotApply;
 	//EEffectRemovalPolicy DurationEffectRemovalPolicy;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effect")
-	TSubclassOf<UGameplayEffect> InfiniteGameplayEffect;
+	TSubclassOf<UGameplayEffect> InfiniteGameplayEffectClass;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effect")
 	EEffectApplicationPolicy InfiniteEffectApplicationPolicy = EEffectApplicationPolicy::DoNotApply;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effect")
 	EEffectRemovalPolicy InfiniteEffectRemovalPolicy = EEffectRemovalPolicy::RemovalOnEndOverlap;
+
+	TMap<FActiveGameplayEffectHandle, UAbilitySystemComponent*> ActiveEffectHandles;
+
 	
 	UFUNCTION(BlueprintCallable)
 	void ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
