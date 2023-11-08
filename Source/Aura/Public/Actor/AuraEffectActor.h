@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "ActiveGameplayEffectHandle.h"
+#include "GameplayEffect.h"
 #include "GameFramework/Actor.h"
 #include "AuraEffectActor.generated.h"
 
@@ -62,6 +63,14 @@ protected:
 
 	TMap<FActiveGameplayEffectHandle, UAbilitySystemComponent*> ActiveEffectHandles;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effect")
+	TArray<TSubclassOf<UGameplayEffect>> MultipleDurationGameplayEffect;
+
+	FGameplayEffectSpecHandle CreateGameplayEffectSpecHandle(AActor* TargetActor, TSubclassOf<UGameplayEffect>& GameplayEffectClass);
+	
+	EGameplayEffectDurationType GetGamePlayEffectDurationType(AActor* TargetActor, TSubclassOf<UGameplayEffect>& GameplayEffectClass);
+
+	UAbilitySystemComponent* GetAbilitySystemComponent(AActor* TargetActor);
 	
 	UFUNCTION(BlueprintCallable)
 	void ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
