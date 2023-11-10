@@ -13,6 +13,30 @@ UAuraAttributeSet::UAuraAttributeSet()
 	InitMaxMana(100.f);
 }
 
+void UAuraAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
+{
+	Super::PreAttributeChange(Attribute, NewValue);
+
+	if(Attribute == GetHealthAttribute())
+	{
+		NewValue = FMath::Clamp(NewValue, 0, GetMaxHealth());
+		UE_LOG(LogTemp, Warning, TEXT("Health: %f "), NewValue);
+	}
+	if(Attribute == GetMaxHealthAttribute())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("MaxHealth: %f "), NewValue);
+	}
+	if(Attribute == GetManaAttribute())
+	{
+		NewValue = FMath::Clamp(NewValue, 0, GetMaxMana());
+		UE_LOG(LogTemp, Warning, TEXT("Mana: %f "), NewValue);
+	}
+	if(Attribute == GetMaxManaAttribute())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Max Mana: %f "), NewValue);
+	}
+}
+
 void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
