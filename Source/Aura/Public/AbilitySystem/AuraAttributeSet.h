@@ -5,11 +5,40 @@
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
 #include "AbilitySystemComponent.h"
+#include "GameplayEffectExtension.h"
 #include "AuraAttributeSet.generated.h"
 
 /**
  * 
  */
+USTRUCT()
+struct FEffectProperties
+{
+	GENERATED_BODY()
+
+	FEffectProperties(){};
+
+	UPROPERTY()
+	FGameplayEffectContextHandle EffectContextHandle;
+
+	UPROPERTY()
+	UAbilitySystemComponent* SourceASC;
+	UPROPERTY()
+	AActor* SourceAvatarActor;
+	UPROPERTY()
+	AController* SourceController;
+	UPROPERTY()
+	ACharacter* SourceCharacter;
+	
+	UPROPERTY()
+	UAbilitySystemComponent* TargetASC;
+	UPROPERTY()
+	AActor* TargetAvatarActor;
+	UPROPERTY()
+	AController* TargetController;
+	UPROPERTY()
+	ACharacter* TargetCharacter;
+};
 
 //automatically creates attribute data accessors
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
@@ -26,6 +55,7 @@ public:
 	UAuraAttributeSet();
 
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 	
 	//where you register variables for replication
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
@@ -57,4 +87,7 @@ public:
 
 	UFUNCTION()
 	void OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana)const;
+
+private:
+	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const;
 };
