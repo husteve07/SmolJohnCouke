@@ -34,7 +34,7 @@ FGameplayEffectSpecHandle AAuraEffectActor::CreateGameplayEffectSpecHandle(AActo
 	FGameplayEffectContextHandle GameplayEffectContextHandle = TargetASC->MakeEffectContext();
 	GameplayEffectContextHandle.AddSourceObject(this);
 
-	return TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.f, GameplayEffectContextHandle);
+	return TargetASC->MakeOutgoingSpec(GameplayEffectClass, ActorLevel, GameplayEffectContextHandle);
 	
 }
 UAbilitySystemComponent* AAuraEffectActor::GetAbilitySystemComponent(AActor* TargetActor)
@@ -47,6 +47,7 @@ UAbilitySystemComponent* AAuraEffectActor::GetAbilitySystemComponent(AActor* Tar
 void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
 {
 	UAbilitySystemComponent* TargetASC = GetAbilitySystemComponent(TargetActor);
+
 	FGameplayEffectSpecHandle GameplayEffectSpecHandle = CreateGameplayEffectSpecHandle(TargetActor, GameplayEffectClass);
 
 	FActiveGameplayEffectHandle ActiveEffectHandle = TargetASC->ApplyGameplayEffectSpecToSelf(*GameplayEffectSpecHandle.Data.Get());

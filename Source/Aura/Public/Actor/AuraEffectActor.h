@@ -66,6 +66,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effect")
 	TArray<TSubclassOf<UGameplayEffect>> MultipleDurationGameplayEffect;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effect")
+	float ActorLevel = 1.f;
+
 	FGameplayEffectSpecHandle CreateGameplayEffectSpecHandle(AActor* TargetActor, TSubclassOf<UGameplayEffect>& GameplayEffectClass);
 	
 	EGameplayEffectDurationType GetGamePlayEffectDurationType(AActor* TargetActor, TSubclassOf<UGameplayEffect>& GameplayEffectClass);
