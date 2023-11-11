@@ -21,7 +21,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	void InitAbilityActorInfo();
+	virtual void InitAbilityActorInfo() override;
 	
 	virtual void OnRep_PlayerState() override;
 	virtual void PossessedBy(AController* NewController) override;

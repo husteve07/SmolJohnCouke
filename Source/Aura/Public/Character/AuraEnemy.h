@@ -20,4 +20,6 @@ public:
 	virtual void HighlightEnemy() override;
 	virtual void UnHighlightEnemy() override;
 	virtual void BeginPlay() override;
+protected:
+	virtual void InitAbilityActorInfo() override;
 };
