@@ -54,5 +54,10 @@ void AAuraCharacterBase::InitAbilityActorInfo()
 {
 }
 
+void AAuraCharacterBase::InitializeVitalAttributes() const
+{
+	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);	
+}
+
 
 

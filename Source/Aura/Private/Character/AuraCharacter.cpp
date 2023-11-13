@@ -53,6 +53,7 @@ void AAuraCharacter::InitAbilityActorInfo()
 		}
 	}
 	InitializeDefaultAttributes();
+	InitializeVitalAttributes();	
 }
 
 void AAuraCharacter::OnRep_PlayerState()

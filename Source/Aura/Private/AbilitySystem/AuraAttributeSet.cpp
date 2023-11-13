@@ -11,8 +11,6 @@
 
 UAuraAttributeSet::UAuraAttributeSet()
 {
-	InitHealth(50.f);
-	InitMana(25.f);
 }
 
 void UAuraAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
