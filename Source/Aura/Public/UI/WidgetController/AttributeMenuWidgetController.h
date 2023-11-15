@@ -3,8 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystem/Data/AttributeInfo.h"
 #include "UI/WidgetController/AuraWidgetController.h"
 #include "AttributeMenuWidgetController.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAttributeInfoSignature, const FAuraAttributeInfo, Info);
 
 /**
  * 
@@ -17,4 +20,15 @@ public:
 	virtual void BindCallbacksToDependencies() override;
 
 	virtual void BroadcastInitialValues() override;
+
+	UPROPERTY(BlueprintAssignable, Category="GAS|Attribute")
+	FAttributeInfoSignature AttributeInfoDelegate;
+
+protected:
+
+	UPROPERTY(EditAnywhere, Category="GAS|Attribute")
+	TObjectPtr<UAttributeInfo> AttributeInfo;
+
+private:
+	void BroadCastAttributeInfo(const FGameplayTag AttributeTag, const FGameplayAttribute GameplayAttribute) const;
 };
