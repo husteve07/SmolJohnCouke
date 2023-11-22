@@ -4,6 +4,7 @@
 
 #include "ShaderPrintParameters.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "Widgets/Text/ISlateEditableTextWidget.h"
 
 AAuraCharacterBase::AAuraCharacterBase()
 {
@@ -57,6 +58,14 @@ void AAuraCharacterBase::InitAbilityActorInfo()
 void AAuraCharacterBase::InitializeVitalAttributes() const
 {
 	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);	
+}
+
+void AAuraCharacterBase::AddCharacterAbilities()
+{
+	UAuraAbilitySystemComponent* ASC = Cast<UAuraAbilitySystemComponent>(GetAbilitySystemComponent());
+	if(!HasAuthority()) return;
+	ASC->AddCharacterAbilities(CharacterAbilities);
+	
 }
 
 
