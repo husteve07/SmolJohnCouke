@@ -85,7 +85,7 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 	}
 	else
 	{
-		APawn* ControlledPawn = GetPawn();
+		const APawn* ControlledPawn = GetPawn();
 		if(FollowTime <= ShortPressedTime && ControlledPawn)
 		{
 			if(UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
@@ -94,7 +94,6 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 				for(const FVector& PointLoc : NavPath->PathPoints)
 				{
 					SplineComponent->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
-					DrawDebugSphere(GetWorld(), PointLoc, 8.f, 8, FColor::Green, false, 5.f);
 				}
 				CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num()-1];
 				bAutoRunning = true;
@@ -123,11 +122,10 @@ void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 	else
 	{
 		FollowTime += GetWorld()->GetDeltaSeconds();
-
-		FHitResult Hit;
-		if(GetHitResultUnderCursor(ECC_Visibility, false, Hit))
+		
+		if(GetHitResultUnderCursor(ECC_Visibility, false, CursorHit))
 		{
-			CachedDestination = Hit.ImpactPoint;
+			CachedDestination = CursorHit.ImpactPoint;
 		}
 
 		if(APawn* ControlledPawn = GetPawn())
@@ -183,42 +181,16 @@ void AAuraPlayerController::PlayerTick(float DeltaTime)
 
 void AAuraPlayerController::CursorTrace()
 {
-	FHitResult HitResult;
-	GetHitResultUnderCursor(ECC_Visibility, false,HitResult);
-	if(!HitResult.bBlockingHit) return;
+	GetHitResultUnderCursor(ECC_Visibility, false,CursorHit);
+	if(!CursorHit.bBlockingHit) return;
 
 	LastActor = ThisActor;
-	ThisActor = Cast<IEnemyInterface>(HitResult.GetActor());
+	ThisActor = Cast<IEnemyInterface>(CursorHit.GetActor());
 
-	if(LastActor == nullptr)
+	if(LastActor != ThisActor)
 	{
-		if(ThisActor != nullptr)
-		{
-			ThisActor->HighlightEnemy();
-		}
-		else
-		{
-			//both null
-		}
-	}
-	else
-	{
-		if(ThisActor == nullptr)
-		{
-			LastActor->UnHighlightEnemy();
-		}
-		else
-		{
-			if(LastActor != ThisActor)
-			{
-				LastActor->UnHighlightEnemy();
-				ThisActor->HighlightEnemy();
-			}
-			else
-			{
-				//this == last
-			}
-		}
+		if(LastActor) LastActor->UnHighlightEnemy();
+		if(ThisActor) ThisActor->HighlightEnemy();
 	}
 }
 
