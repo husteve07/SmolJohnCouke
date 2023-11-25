@@ -21,6 +21,8 @@ class AURA_API AAuraCharacterBase : public ACharacter, public IAbilitySystemInte
 public:
 	AAuraCharacterBase();
 
+	virtual FVector GetCombatSocket() override;
+
 protected:
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
@@ -29,7 +31,6 @@ protected:
 	
 	virtual void BeginPlay() override;
 
-	virtual FVector GetCombatSocket() override;
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	FName CombatSocketName;

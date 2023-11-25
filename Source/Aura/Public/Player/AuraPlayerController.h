@@ -45,7 +45,7 @@ private:
 
 	FHitResult CursorHit;
 
-	bool bIsWidgetUnderCursor = false;
+	//bool bIsWidgetUnderCursor = false;
 	
 	void AbilityInputTagPressed(FGameplayTag InputTag);
 	void AbilityInputTagReleased(FGameplayTag InputTag);

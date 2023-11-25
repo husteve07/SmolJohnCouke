@@ -147,7 +147,7 @@ UAuraAbilitySystemComponent* AAuraPlayerController::GetASC()
 
 void AAuraPlayerController::AutoRun()
 {
-	if(!bAutoRunning || bIsWidgetUnderCursor) return;
+	if(!bAutoRunning /*|| bIsWidgetUnderCursor*/) return;
 	if(APawn* ControlledPawn = GetPawn())
 	{
 		const FVector LocationonSpline = SplineComponent->FindLocationClosestToWorldLocation(ControlledPawn->GetActorLocation(), ESplineCoordinateSpace::World);
@@ -185,7 +185,7 @@ void AAuraPlayerController::CursorTrace()
 	GetHitResultUnderCursor(ECC_Visibility, false,CursorHit);
 	if(!CursorHit.bBlockingHit) return;
 
-	bIsWidgetUnderCursor = Cast<UAuraUserWidget>(CursorHit.GetHitObjectHandle().GetRepresentedClass())? true : false;
+	//bIsWidgetUnderCursor = Cast<UAuraUserWidget>(CursorHit.GetHitObjectHandle().GetRepresentedClass())? true : false;
 	
 	LastActor = ThisActor;
 	ThisActor = Cast<IEnemyInterface>(CursorHit.GetActor());
