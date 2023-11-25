@@ -29,6 +29,11 @@ protected:
 	
 	virtual void BeginPlay() override;
 
+	virtual FVector GetCombatSocket() override;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	FName CombatSocketName;
+	
 	UPROPERTY(EditAnywhere, Category= "Combat")
 	TObjectPtr<USkeletalMeshComponent> WeaponMesh;
 

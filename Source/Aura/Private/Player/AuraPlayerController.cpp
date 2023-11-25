@@ -12,6 +12,7 @@
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "Components/SplineComponent.h"
 #include "Input/AuraInputComponent.h"
+#include "UI/Widget/AuraUserWidget.h"
 
 AAuraPlayerController::AAuraPlayerController()
 {
@@ -146,7 +147,7 @@ UAuraAbilitySystemComponent* AAuraPlayerController::GetASC()
 
 void AAuraPlayerController::AutoRun()
 {
-	if(!bAutoRunning) return;
+	if(!bAutoRunning || bIsWidgetUnderCursor) return;
 	if(APawn* ControlledPawn = GetPawn())
 	{
 		const FVector LocationonSpline = SplineComponent->FindLocationClosestToWorldLocation(ControlledPawn->GetActorLocation(), ESplineCoordinateSpace::World);
@@ -184,9 +185,11 @@ void AAuraPlayerController::CursorTrace()
 	GetHitResultUnderCursor(ECC_Visibility, false,CursorHit);
 	if(!CursorHit.bBlockingHit) return;
 
+	bIsWidgetUnderCursor = Cast<UAuraUserWidget>(CursorHit.GetHitObjectHandle().GetRepresentedClass())? true : false;
+	
 	LastActor = ThisActor;
 	ThisActor = Cast<IEnemyInterface>(CursorHit.GetActor());
-
+	
 	if(LastActor != ThisActor)
 	{
 		if(LastActor) LastActor->UnHighlightEnemy();

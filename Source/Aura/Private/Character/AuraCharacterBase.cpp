@@ -32,6 +32,11 @@ void AAuraCharacterBase::BeginPlay()
 	
 }
 
+FVector AAuraCharacterBase::GetCombatSocket()
+{
+	return WeaponMesh->GetSocketLocation(CombatSocketName);
+}
+
 void AAuraCharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GamePlayEffectClass, float Level) const
 {
 	check(IsValid(GetAbilitySystemComponent()));
