@@ -13,3 +13,4 @@ FVector ICombatInterface::GetCombatSocket()
 {
 	return FVector();
 }
+
