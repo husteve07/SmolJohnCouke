@@ -19,7 +19,7 @@ protected:
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData);
 
 	UFUNCTION(BlueprintCallable)
-	void SpawnProjectile();
+	void SpawnProjectile(const FVector& TargetLocation);
 	
 	UPROPERTY(EditDefaultsOnly, Category="Abilities")
 	TSubclassOf<AAuraProjectile> AuraProjectile;
