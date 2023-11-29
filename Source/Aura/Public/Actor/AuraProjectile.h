@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayEffectTypes.h"
 #include "GameFramework/Actor.h"
 #include "AuraProjectile.generated.h"
 
@@ -22,6 +23,9 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
 	
+	UPROPERTY(BlueprintReadWrite, meta = (ExposeOnSpawn = true))
+	FGameplayEffectSpecHandle GameplayEffectSpec;
+	
 protected:
 	virtual void BeginPlay() override;
 
@@ -30,6 +34,8 @@ protected:
 	virtual void Destroyed() override;
 	
 private:
+
+	
 	bool bHit = false;
 
 	UPROPERTY(EditDefaultsOnly)

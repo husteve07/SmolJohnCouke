@@ -7,6 +7,7 @@
 #include "AuraProjectileSpell.generated.h"
 
 class AAuraProjectile;
+class UGameplayEffect;
 /**
  * 
  */
@@ -23,5 +24,8 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category="Abilities")
 	TSubclassOf<AAuraProjectile> AuraProjectile;
+
+	UPROPERTY(EditDefaultsOnly, Category="Abilities")
+	TSubclassOf<UGameplayEffect> ProjectileGameplayEffects;
 	
 };
