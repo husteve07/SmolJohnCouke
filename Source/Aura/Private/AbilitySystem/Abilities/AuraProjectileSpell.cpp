@@ -2,7 +2,7 @@
 
 
 #include "AbilitySystem/Abilities/AuraProjectileSpell.h"
-
+#include "AuraGameplayTags.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
 #include "Actor/AuraProjectile.h"
@@ -49,6 +49,10 @@ void UAuraProjectileSpell::SpawnProjectile(const FVector& TargetLocation)
 		const FGameplayEffectSpecHandle SpecHandle = SourceASC->MakeOutgoingSpec(ProjectileGameplayEffects, GetAbilityLevel(), SourceASC->MakeEffectContext());
 		Projectile->GameplayEffectSpec = SpecHandle;
 		
+		FAuraGameplayTags AuraGameplayTags = FAuraGameplayTags::Get();
+
+		UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, AuraGameplayTags.Damage, 50.f);
+
 		Projectile->FinishSpawning(SpawnTransform);
 	}
 }
