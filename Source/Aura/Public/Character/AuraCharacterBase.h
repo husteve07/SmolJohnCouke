@@ -12,6 +12,7 @@ class UGameplayAbility;
 class UGameplayEffect;
 class UAbilitySystemComponent;
 class UAttributeSet;
+class UAnimMontage;
 
 UCLASS()
 class AURA_API AAuraCharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
@@ -22,6 +23,8 @@ public:
 	AAuraCharacterBase();
 
 	virtual FVector GetCombatSocket() override;
+
+	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
 
 protected:
 
@@ -53,6 +56,8 @@ protected:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Attributes")
 	TSubclassOf<UGameplayEffect> DefaultVitalAttributes;
 
+
+	
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GamePlayEffectClass, float Level) const;
 
 	virtual void InitializeDefaultAttributes() const;
@@ -66,5 +71,6 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, Category="Abilities")
 	TArray<TSubclassOf<UGameplayAbility>> CharacterAbilities;
-	
+	UPROPERTY(EditDefaultsOnly, Category="Combat")
+	TObjectPtr<UAnimMontage> CharacterHitReactAnimMontage;
 };

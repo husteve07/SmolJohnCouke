@@ -16,6 +16,8 @@ class UCombatInterface : public UInterface
 /**
  * 
  */
+
+class UAnimMontage;
 class AURA_API ICombatInterface
 {
 	GENERATED_BODY()
@@ -26,4 +28,7 @@ public:
 	virtual FVector GetCombatSocket();
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void SetWarpTargetLocation(const FVector& TargetLocation);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	UAnimMontage* GetHitReactMontage();
 };

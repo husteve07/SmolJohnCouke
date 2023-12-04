@@ -37,6 +37,11 @@ FVector AAuraCharacterBase::GetCombatSocket()
 	return WeaponMesh->GetSocketLocation(CombatSocketName);
 }
 
+UAnimMontage* AAuraCharacterBase::GetHitReactMontage_Implementation()
+{
+	return CharacterHitReactAnimMontage;
+}
+
 void AAuraCharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GamePlayEffectClass, float Level) const
 {
 	check(IsValid(GetAbilitySystemComponent()));
