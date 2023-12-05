@@ -23,7 +23,8 @@ public:
 	virtual void HighlightEnemy() override;
 	virtual void UnHighlightEnemy() override;
 	virtual void BeginPlay() override;
-
+	virtual void Die() override;
+	
 /*combat interface*/
 	virtual int32 GetPlayerLevel() override;
 
@@ -40,6 +41,9 @@ public:
 	
 	UPROPERTY(BlueprintReadOnly, Category="Combat")
 	float BaseWalkSpeed = 250.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Combat")
+	float LifeSpan = 5.f;
 	
 protected:
 	virtual void InitAbilityActorInfo() override;
