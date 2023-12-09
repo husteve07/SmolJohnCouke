@@ -72,7 +72,11 @@ void UExec_CalcDamage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().BlockChanceDef, EvaluationParameters, BlockChance);
 	BlockChance = FMath::Max<float>(BlockChance, 0.f);
 	//if block, halve the damage
-	if(FMath::RandRange(0.f, 100.f) < BlockChance) Damage /= 2;
+	bool bBlocked = FMath::RandRange(0.f, 100.f) < BlockChance;
+	if(bBlocked) Damage /= 2;
+
+	FGameplayEffectContextHandle EffectContextHandle = Spec.GetContext();
+	UAuraAbilitySystemLibrary::SetIsBlockedHit(EffectContextHandle, bBlocked);
 	
 	float TargetArmor = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ArmorDef, EvaluationParameters, TargetArmor);
@@ -114,6 +118,8 @@ void UExec_CalcDamage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	const float EffectiveCriticalHitChance = SourceCriticalHitChance - TargetCriticalHitResistance * CriticalHitResistanceCoefficient;
 	const bool bCriticalHit = FMath::RandRange(1,100) < EffectiveCriticalHitChance;
 
+	UAuraAbilitySystemLibrary::SetIsCriticalHit(EffectContextHandle, bCriticalHit);
+	
 	Damage = bCriticalHit ? 2.f * Damage + SourceCriticalHitChance : Damage;
 	
 	
