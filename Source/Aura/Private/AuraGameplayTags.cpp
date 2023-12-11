@@ -2,6 +2,8 @@
 
 
 #include "AuraGameplayTags.h"
+
+#include "AssetTypeCategories.h"
 #include "GameplayTagsManager.h"
 #include "NativeGameplayTags.h"
 
@@ -40,7 +42,9 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	//GameplayTags.Attributes_Secondary_Armor = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Secondary.Armor"), FString("Reduces Dmg Taken, improves block Chances"));
 
 	DEFINE_NATIVE_GAMEPLAY_TAGS_WITH_COMMENT("Damage", Damage, "Damage For Meta Attribute")
-
+	DEFINE_NATIVE_GAMEPLAY_TAGS_WITH_COMMENT("Damage.Fire", Damage_Fire, "Fire Damage Type")
+	GameplayTags.DamageTypes.Add(GameplayTags.Damage_Fire);
+	
 	DEFINE_NATIVE_GAMEPLAY_TAGS_WITH_COMMENT("Effects.HitReact", Effects_HitReact, "Hit reaction")
 	
 }
