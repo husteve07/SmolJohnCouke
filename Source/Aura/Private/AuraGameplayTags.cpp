@@ -41,10 +41,35 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	
 	//GameplayTags.Attributes_Secondary_Armor = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Secondary.Armor"), FString("Reduces Dmg Taken, improves block Chances"));
 
+	/*
+	 *Damage Types
+	 */
+	
 	DEFINE_NATIVE_GAMEPLAY_TAGS_WITH_COMMENT("Damage", Damage, "Damage For Meta Attribute")
 	DEFINE_NATIVE_GAMEPLAY_TAGS_WITH_COMMENT("Damage.Fire", Damage_Fire, "Fire Damage Type")
-	GameplayTags.DamageTypes.Add(GameplayTags.Damage_Fire);
-	
+	DEFINE_NATIVE_GAMEPLAY_TAGS_WITH_COMMENT("Damage.Lightning", Damage_Lightning, "Lightning Damage Type")
+	DEFINE_NATIVE_GAMEPLAY_TAGS_WITH_COMMENT("Damage.Arcane", Damage_Arcane, "Arcane Damage Type")
+	DEFINE_NATIVE_GAMEPLAY_TAGS_WITH_COMMENT("Damage.Physical", Damage_Physical, "Physical Damage Type")
+
+/*
+ *Damage type resistances
+ */
+	DEFINE_NATIVE_GAMEPLAY_TAGS_WITH_COMMENT("Attributes.Resistance.Fire", Attributes_Resistance_Fire, "Fire Damage Type Resistance")
+	DEFINE_NATIVE_GAMEPLAY_TAGS_WITH_COMMENT("Attributes.Resistance.Lightning", Attributes_Resistance_Lightning, "Lightning Damage Type Resistance")
+	DEFINE_NATIVE_GAMEPLAY_TAGS_WITH_COMMENT("Attributes.Resistance.Arcane", Attributes_Resistance_Arcane, "Arcane Damage Type Resistance")
+	DEFINE_NATIVE_GAMEPLAY_TAGS_WITH_COMMENT("Attributes.Resistance.Physical", Attributes_Resistance_Physical, "Physical Damage Type Resistance")
+
+	/*
+	 *Map of Damge Types to Resistance
+	 */
+	GameplayTags.DamageTypesToResistances.Add(GameplayTags.Damage_Fire, GameplayTags.Attributes_Resistance_Fire);
+	GameplayTags.DamageTypesToResistances.Add(GameplayTags.Damage_Lightning, GameplayTags.Attributes_Resistance_Lightning);
+	GameplayTags.DamageTypesToResistances.Add(GameplayTags.Damage_Arcane, GameplayTags.Attributes_Resistance_Arcane);
+	GameplayTags.DamageTypesToResistances.Add(GameplayTags.Damage_Physical, GameplayTags.Attributes_Resistance_Physical);
+
+	/*
+	 *effects
+	 */
 	DEFINE_NATIVE_GAMEPLAY_TAGS_WITH_COMMENT("Effects.HitReact", Effects_HitReact, "Hit reaction")
 	
 }
